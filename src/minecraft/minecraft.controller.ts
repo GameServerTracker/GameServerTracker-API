@@ -11,7 +11,7 @@ export class MinecraftController {
 
     @Get('/:address')
     @ApiOperation({
-        summary: "Get number of player connected",
+        summary: "Track a Minecraft Server Java Edition",
         description: "Return a JSON response",
     })
     @ApiResponse({
