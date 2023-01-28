@@ -1,8 +1,20 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  const swaggerConfig = new DocumentBuilder()
+  .setTitle("Game server tracker - API")
+  .setDescription(`A API which shows several information on a server Minecraft / Source (Gmod, CS, CSGO) / FiveM`)
+  .setVersion("1.0")
+  .setContact("BliTz_37", "https://github.com/BliTz037", "tom.rives@epitech.eu")
+  .build();
+  const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
+
+  SwaggerModule.setup('api-docs', app, swaggerDocument);
+  app.useGlobalPipes(new ValidationPipe({ disableErrorMessages: false, whitelist: true }))
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();

@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 export class AppService {
   getHello(): any {
     return {
-      message: "GameServerTracker API is OK !"
+      message: "GameServerTracker API is OK ! Please look the swagger on /api-docs"
     };
   }
 }
