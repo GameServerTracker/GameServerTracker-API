@@ -3,7 +3,7 @@ import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger/di
 import { SourceService } from './source.service';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
 
-@ApiTags('Source')
+@ApiTags('Source (Half-Life, Counter-Strike, GMod)')
 @Controller('source')
 export class SourceController {
     constructor(private readonly service: SourceService) { }

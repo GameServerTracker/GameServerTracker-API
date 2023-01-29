@@ -5,7 +5,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import ServerCfxDto from 'src/dto/serverCfxDto';
 
-@ApiTags('FiveM')
+@ApiTags('FiveM / RedM')
 @Controller('fivem')
 export class FivemController {
     constructor(private readonly service: FivemService) { }
