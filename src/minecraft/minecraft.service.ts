@@ -15,7 +15,12 @@ export class MinecraftService {
             if (port < 0 || port > 65536 || isNaN(port))
                 throw (`Address ${server.address} has a bad port !`);
             const data: IMinecraftData = await minecraftServer.ping(hostname, port, optionPing);
-            return data;
+            return {
+                hostname,
+                port,
+                online: true,
+                ...data
+            };
         } catch (err: any) {
             Logger.warn(`[MC server | ${server.address}] ${err.name}: ${err.message}`);
             return {
