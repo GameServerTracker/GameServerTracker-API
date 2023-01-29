@@ -1,7 +1,4 @@
 # Game Server Tracker - API
-<p align="center">
-  <a href="https://github.com/BliTz037/GameServerTracker-API" target="blank"><img src="https://zupimages.net/up/23/04/pw5l.png" width="200" alt="Nest Logo" /></a>
-</p>
 
   <p align="center">A API which shows several information on a server Minecraft / Source (Gmod, CS, CSGO) / FiveM</p>
 
