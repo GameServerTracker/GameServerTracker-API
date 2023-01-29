@@ -4,8 +4,7 @@ import { IsNotEmpty, IsString } from "class-validator";
 
 export default class ServerTrackedDto {
     @ApiProperty({
-        description: "Server's address",
-        example: "mc.hypixel.net",
+        description: "Server's address"
     })
     @IsNotEmpty() @IsString()
     address: string;
