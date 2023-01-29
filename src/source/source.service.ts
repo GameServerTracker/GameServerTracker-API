@@ -22,7 +22,7 @@ export class SourceService {
         } catch (err: any) {
             Logger.warn(`[Source server | ${serverTracked.address}] ${err.name}: ${err.message}`);
             return {
-                hostname,
+                address: serverTracked.address,
                 port,
                 online: false
             };
@@ -40,7 +40,7 @@ export class SourceService {
             const server: Server = await Server({ ip: hostname, port, timeout: 3000 });
             let data: any = await server.getPlayers();
             return {
-                hostname,
+                address: serverTracked.address,
                 port,
                 online: true,
                 ping: server.lastPing,
@@ -50,7 +50,7 @@ export class SourceService {
         } catch (err: any) {
             Logger.warn(`[Source server | ${serverTracked.address}] ${err.name}: ${err.message}`);
             return {
-                hostname,
+                address: serverTracked.address,
                 port,
                 online: false
             };
@@ -68,7 +68,7 @@ export class SourceService {
             const server: Server = await Server({ ip: hostname, port, timeout: 3000 });
             const rules: any = await server.getRules();
             return {
-                hostname,
+                address: serverTracked.address,
                 port,
                 online: true,
                 ping: server.lastPing,
@@ -77,7 +77,7 @@ export class SourceService {
         } catch (err: any) {
             Logger.warn(`[Source server | ${serverTracked.address}] ${err.name}: ${err.message}`);
             return {
-                hostname,
+                address: serverTracked.address,
                 port,
                 online: false
             };

@@ -16,7 +16,7 @@ export class MinecraftService {
                 throw (`Address ${server.address} has a bad port !`);
             const data: IMinecraftData = await minecraftServer.ping(hostname, port, optionPing);
             return {
-                hostname,
+                address: server.address,
                 port,
                 online: true,
                 ...data
@@ -24,7 +24,7 @@ export class MinecraftService {
         } catch (err: any) {
             Logger.warn(`[MC server | ${server.address}] ${err.name}: ${err.message}`);
             return {
-                hostname,
+                address: server.address,
                 port,
                 online: false
             };
