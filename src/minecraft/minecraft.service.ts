@@ -32,6 +32,32 @@ export class MinecraftService {
         }
     }
 
+    async trackServerQuery(server: ServerTrackedDto) {
+        const addressSplited: string[] = server.address.split(':');
+        const hostname = addressSplited[0];
+        const port: number = addressSplited[1] != undefined ? +addressSplited[1] : 25565;
+        const options: minecraftServer.QueryOptions = { timeout: 2000, enableSRV: true, sessionID: 42 };
+
+        try {
+            if (port < 0 || port > 65536 || isNaN(port))
+                throw (`Address ${server.address} has a bad port !`);
+            const data: minecraftServer.FullQueryResponse = await minecraftServer.queryFull(hostname, port, options);
+            return {
+                address: server.address,
+                port,
+                online: true,
+                ...data
+            };
+        } catch (err: any) {
+            Logger.warn(`[MC server Query | ${server.address}] ${err.name}: ${err.message}`);
+            return {
+                address: server.address,
+                port,
+                online: false
+            };
+        }
+    }
+
     async trackBedrockServer(server: ServerTrackedDto) {
         const addressSplited: string[] = server.address.split(':');
         const hostname = addressSplited[0];
