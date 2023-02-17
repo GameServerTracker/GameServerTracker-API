@@ -1,7 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { IMinecraftData } from 'minecraft-server-ping/dist/interfaces';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
-import * as minecraftServer from 'minecraft-server-ping';
+import * as minecraftServer from 'minecraft-server-util';
 
 @Injectable()
 export class MinecraftService {
@@ -9,12 +8,14 @@ export class MinecraftService {
         const addressSplited: string[] = server.address.split(':');
         const hostname = addressSplited[0];
         const port: number = addressSplited[1] != undefined ? +addressSplited[1] : 25565;
-        const optionPing: any = { timeout: 2000 }
+        const options: minecraftServer.JavaStatusOptions = { timeout: 2000, enableSRV: true }
 
         try {
             if (port < 0 || port > 65536 || isNaN(port))
                 throw (`Address ${server.address} has a bad port !`);
-            const data: IMinecraftData = await minecraftServer.ping(hostname, port, optionPing);
+            const data: minecraftServer.JavaStatusResponse = await minecraftServer.status(hostname, port, options);
+            data['ping'] = data.roundTripLatency;
+            delete data.roundTripLatency;
             return {
                 address: server.address,
                 port,
