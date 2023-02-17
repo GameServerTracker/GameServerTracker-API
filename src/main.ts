@@ -9,7 +9,7 @@ async function bootstrap() {
   .setTitle("Game server tracker - API")
   .setDescription(`A API which shows several information on a server Minecraft / Source (Gmod, CS, CSGO) / FiveM`)
   .setVersion("1.0")
-  .setContact("BliTz_37", "https://github.com/BliTz037", "tom.rives@epitech.eu")
+  .setContact("BliTz_37", "https://github.com/BliTz037", "blitz@blitzlab.ninja")
   .build();
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
 
