@@ -1,16 +1,17 @@
 import { Server } from '@fabricio-191/valve-server-query';
 import { Injectable, Logger } from '@nestjs/common';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
+import { DefaultPort } from 'src/utils/enums';
 
 @Injectable()
 export class SourceService {
     async trackServer(serverTracked: ServerTrackedDto): Promise<any> {
         const addressSplited: string[] = serverTracked.address.split(':');
         const hostname = addressSplited[0];
-        const port: number = addressSplited[1] != undefined ? +addressSplited[1] : 27015;
+        const port: number = addressSplited[1] != undefined ? +addressSplited[1] : DefaultPort.Source;
 
         try {
-            if (port < 0 || port > 65536 || isNaN(port))
+            if (port < 0 || port > DefaultPort.MaxPort || isNaN(port))
                 throw (`Address ${serverTracked.address} has a bad port !`);
             const server: Server = await Server({ ip: hostname, port, timeout: 3000 });
             let data: any = await server.getInfo();
@@ -32,10 +33,10 @@ export class SourceService {
     async trackPlayers(serverTracked: ServerTrackedDto): Promise<any> {
         const addressSplited: string[] = serverTracked.address.split(':');
         const hostname = addressSplited[0];
-        const port: number = addressSplited[1] != undefined ? +addressSplited[1] : 27015;
+        const port: number = addressSplited[1] != undefined ? +addressSplited[1] : DefaultPort.Source;
 
         try {
-            if (port < 0 || port > 65536 || isNaN(port))
+            if (port < 0 || port > DefaultPort.MaxPort || isNaN(port))
                 throw (`Address ${serverTracked.address} has a bad port !`);
             const server: Server = await Server({ ip: hostname, port, timeout: 3000 });
             let data: any = await server.getPlayers();
@@ -60,10 +61,10 @@ export class SourceService {
     async trackRules(serverTracked: ServerTrackedDto): Promise<any> {
         const addressSplited: string[] = serverTracked.address.split(':');
         const hostname = addressSplited[0];
-        const port: number = addressSplited[1] != undefined ? +addressSplited[1] : 27015;
+        const port: number = addressSplited[1] != undefined ? +addressSplited[1] : DefaultPort.Source;
 
         try {
-            if (port < 0 || port > 65536 || isNaN(port))
+            if (port < 0 || port > DefaultPort.MaxPort || isNaN(port))
                 throw (`Address ${serverTracked.address} has a bad port !`);
             const server: Server = await Server({ ip: hostname, port, timeout: 3000 });
             const rules: any = await server.getRules();
