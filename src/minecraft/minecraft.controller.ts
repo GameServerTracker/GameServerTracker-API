@@ -25,4 +25,21 @@ export class MinecraftController {
     async trackServer(@Param() address: ServerTrackedDto): Promise<any> {
         return this.service.trackServer(address);
     }
+
+    @Get('/bedrock/:address')
+    @ApiOperation({
+        summary: "Track a Minecraft Server Bedrock Edition",
+        description: "Return a JSON response",
+    })
+    @ApiResponse({
+        status: 200,
+        schema: {
+            example: {
+                message: "Todo"
+            }
+        }
+    })
+    async trackBedrockServer(@Param() address: ServerTrackedDto): Promise<any> {
+        return this.service.trackBedrockServer(address);
+    }
 }
