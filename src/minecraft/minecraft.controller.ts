@@ -5,6 +5,13 @@ import { Get, Inject, Param } from '@nestjs/common/decorators';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import { Cache } from 'cache-manager';
 
+/*
+CODE CacheKey
+- MC : Minecraft Track Minecraft Java server
+- MCQ : Minecraft Track Minecraft Java server with Query Request
+- MCB : Minecraft Track Minecraft Bedrock server
+*/
+
 @ApiTags('Minecraft')
 @Controller('minecraft')
 export class MinecraftController {
