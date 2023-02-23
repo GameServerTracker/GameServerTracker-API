@@ -53,7 +53,16 @@ export class MinecraftController {
         }
     })
     async trackServerQuery(@Param() address: ServerTrackedDto): Promise<any> {
-        return this.service.trackServerQuery(address);
+        const cache: any = await this.cacheManager.get(`MCQ:${address.address}`);
+        let result: any;
+
+        if (cache)
+            return cache;
+        result = await this.service.trackServerQuery(address);
+        result["cacheTime"] = Math.floor(Date.now() / 1000);
+        result["cacheExpire"] = Math.floor(Date.now() / 1000) + (5 * 60);
+        this.cacheManager.set(`MCQ:${address.address}`, result, 5 * 60 * 1000);
+        return result;
     }
 
     @Get('/bedrock/:address')
@@ -70,6 +79,15 @@ export class MinecraftController {
         }
     })
     async trackBedrockServer(@Param() address: ServerTrackedDto): Promise<any> {
-        return this.service.trackBedrockServer(address);
+        const cache: any = await this.cacheManager.get(`MCB:${address.address}`);
+        let result: any;
+
+        if (cache)
+            return cache;
+        result = await this.service.trackBedrockServer(address);
+        result["cacheTime"] = Math.floor(Date.now() / 1000);
+        result["cacheExpire"] = Math.floor(Date.now() / 1000) + (5 * 60);
+        this.cacheManager.set(`MCB:${address.address}`, result, 5 * 60 * 1000);
+        return result;
     }
 }
