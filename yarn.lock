@@ -1572,10 +1572,10 @@ bytes@3.1.2:
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.2.tgz#8b0beeb98605adf1b128fa4386403c009e0221a5"
   integrity sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==
 
-cache-manager@^5.1.4:
-  version "5.1.4"
-  resolved "https://registry.yarnpkg.com/cache-manager/-/cache-manager-5.1.4.tgz#b3024f2127353f9f725f43ecbd184872101b6bb2"
-  integrity sha512-beXzzuboV6I0AkU25udrd8tRxFbU6c5m7+3eOdmznSVNkyKe0+uTK8EtcuhTwqc/wAYrAGl62w3s58rjKnrO6g==
+cache-manager@^5.1.6:
+  version "5.1.6"
+  resolved "https://registry.yarnpkg.com/cache-manager/-/cache-manager-5.1.6.tgz#e0a97f29c1f9970b11ff4acceba70eca6c5592e8"
+  integrity sha512-Q1A8ESC9sPgjSebfJl7DWUjcm3Sf5E4b5D9dspy0XCNYLMhcMOrPyTDVTYDDtpVk9JRt3uercpWZAlCsfhlDYQ==
   dependencies:
     lodash.clonedeep "^4.5.0"
     lru-cache "^7.14.0"
