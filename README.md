@@ -10,7 +10,7 @@ The API supports multiple types of game servers, including Minecraft (Java and B
 
 This API was inspired by the Lametric Clock app project : [GameServerTracker-LametricApp](https://github.com/BliTz037/GameServerTracker-LametricApp)
 
-## Servers available
+## Available Servers
 - Minecraft Java Edition
 - Minecraft Bedrock Edition
 - Source (All servers using the Source game engine like : Half-Life, Counter-Strike, Team Fortress 2, GMod, etc)
