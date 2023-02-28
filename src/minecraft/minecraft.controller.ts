@@ -4,7 +4,7 @@ import { MinecraftService } from './minecraft.service';
 import { Get, Inject, Param } from '@nestjs/common/decorators';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import { Cache } from 'cache-manager';
-import { javaResponse } from './minecraft.schema';
+import { javaQueryResponse, javaResponse } from './minecraft.schema';
 
 /*
 CODE CacheKey
@@ -46,15 +46,11 @@ export class MinecraftController {
     @Get('/query/:address')
     @ApiOperation({
         summary: "Track a Minecraft Server Java Edition with a query request",
-        description: "Return a JSON response",
+        description: "Track a Minecraft Server Java Edition by a query request.",
     })
-    @ApiResponse({
-        status: 200,
-        schema: {
-            example: {
-                message: "Todo"
-            }
-        }
+    @ApiOkResponse({
+        description: 'Server information',
+        schema: javaQueryResponse
     })
     async trackServerQuery(@Param() address: ServerTrackedDto): Promise<any> {
         const cache: any = await this.cacheManager.get(`MCQ:${address.address}`);
