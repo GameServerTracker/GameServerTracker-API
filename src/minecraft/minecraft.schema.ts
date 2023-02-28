@@ -11,7 +11,7 @@ const javaResponse: SchemaObject & Partial<ReferenceObject> = {
             description: "Server's version. Can contains more versions, text and software",
             properties: {
                 name: { type: 'string', description: "Server's version" },
-                protocol: { type: 'number' },
+                protocol: { type: 'number', description: "The server's protocol version" },
             },
             required: ['name', 'protocol'],
         },
@@ -47,14 +47,14 @@ const javaResponse: SchemaObject & Partial<ReferenceObject> = {
             type: 'object',
             description: "Server's Message of the day",
             properties: {
-                raw: { type: 'string' },
-                clean: { type: 'string' },
-                html: { type: 'string' },
+                raw: { type: 'string', description: "The raw MOTD" },
+                clean: { type: 'string', description: "The MOTD with formatting codes removed" },
+                html: { type: 'string', description: "The MOTD formatted in HTML" },
             },
             required: ['raw', 'clean', 'html'],
         },
         favicon: { type: 'string', description: "Server's icon in base64" },
-        srvRecord: { type: 'null', properties: {} },
+        srvRecord: { type: 'null', description: "Server's SRV record information, can be null if it is not available", properties: {} },
         ping: { type: 'number', description: "Response time after the ping" },
         cacheTime: { type: 'number', description: "UNIX timestamp when the response was cached" },
         cacheExpire: { type: 'number', description: "UNIX timestamp when the response will be remove from cache. Around 5 minutes." },
@@ -108,9 +108,9 @@ const javaQueryResponse: SchemaObject & Partial<ReferenceObject> = {
             type: 'object',
             description: "Server's Message of the day",
             properties: {
-                raw: { type: 'string' },
-                clean: { type: 'string' },
-                html: { type: 'string' },
+                raw: { type: 'string', description: "The raw MOTD" },
+                clean: { type: 'string', description: "The MOTD with formatting codes removed" },
+                html: { type: 'string', description: "The MOTD formatted in HTML" },
             },
             required: ['raw', 'clean', 'html'],
         },
@@ -219,9 +219,133 @@ const javaQueryResponse: SchemaObject & Partial<ReferenceObject> = {
         "cacheTime": 1677550897,
         "cacheExpire": 1677551197
     }
+};
+
+const bedrockResponse: SchemaObject & Partial<ReferenceObject> = {
+    type: "object",
+    properties: {
+        address: { type: 'string', description: "Server's address" },
+        port: { type: 'number', description: "Server's port. Default is 25565", default: 25565 },
+        online: { type: 'boolean', description: "Server's status. If the bool is true, the server is online" },
+        edition: {
+            type: "string",
+            description: "Server's type of Minecraft Edition"
+        },
+        motd: {
+            type: "object",
+            description: "Server's Message of the day",
+            properties: {
+                raw: {
+                    type: "string",
+                    description: "The raw MOTD"
+                },
+                clean: {
+                    type: "string",
+                    description: "The MOTD with formatting codes removed"
+                },
+                html: {
+                    type: "string",
+                    description: "The MOTD formatted in HTML"
+                }
+            }
+        },
+        version: {
+            type: "object",
+            description: "Server's version. Can contains more versions, text and software",
+            properties: {
+                name: { type: 'string', description: "Server's version" },
+                protocol: { type: 'number', description: "The server's protocol version" }
+            }
+        },
+        players: {
+            type: "object",
+            description: "Players's information",
+            properties: {
+                online: { type: "integer", description: "Number of Players connected" },
+                max: { type: "integer", description: "Max number of players the server can host" }
+            }
+        },
+        serverGUID: {
+            type: "string",
+            description: "Server's GUID (Globally Unique Identifier)"
+        },
+        serverID: {
+            type: "string",
+            description: "Server's ID"
+        },
+        gameMode: {
+            type: "string",
+            description: "Server's current game mode (ex: Survival, Creative, etc)"
+        },
+        gameModeID: {
+            type: "integer",
+            description: "ID of the server's current game mode"
+        },
+        portIPv4: {
+            type: "integer",
+            description: "Server's IPv4 port"
+        },
+        portIPv6: {
+            type: "integer",
+            description: "Server's IPv6 port"
+        },
+        srvRecord: {
+            type: "null",
+            description: "Server's SRV record information, can be null if it is not available"
+        },
+        cacheTime: { type: 'number', description: "UNIX timestamp when the response was cached" },
+        cacheExpire: { type: 'number', description: "UNIX timestamp when the response will be remove from cache. Around 5 minutes." }
+    },
+    required: [
+        'address',
+        'port',
+        'online',
+        'edition',
+        'motd',
+        'version',
+        'players',
+        'serverGUID',
+        'serverID',
+        'gameMode',
+        'gameModeID',
+        'portIPV4',
+        'portIPV6',
+        'srvRecord',
+        'cacheTime',
+        'cacheExpire',
+    ],
+    example: {
+        "address": "mps.mc-complex.com:19132",
+        "port": 19132,
+        "online": true,
+        "edition": "MCPE",
+        "motd": {
+            "raw": "§b---------§8§l[-  §f§lCOMPLEX  §b§lGAMING  §8§l-]§b§l--------§f\n§fᴄʟᴀɴs§f    §b§l§ki§d§l§ki§b§l§ki§b §d#1 ᴘɪxᴇʟᴍᴏɴ ɴᴇᴛᴡᴏʀᴋ §b§l§ki§d§l§ki§b§l§ki§b    §fǫᴜᴇsᴛs",
+            "clean": "---------[-  COMPLEX  GAMING  -]--------\nᴄʟᴀɴs    iii #1 ᴘɪxᴇʟᴍᴏɴ ɴᴇᴛᴡᴏʀᴋ iii    ǫᴜᴇsᴛs",
+            "html": "<span><span style=\"color: #55FFFF;\">---------</span><span style=\"color: #555555; font-weight: bold;\">[-  </span><span style=\"color: #FFFFFF; font-weight: bold;\">COMPLEX  </span><span style=\"color: #55FFFF; font-weight: bold;\">GAMING  </span><span style=\"color: #555555; font-weight: bold;\">-]</span><span style=\"color: #55FFFF; font-weight: bold;\">--------</span><span style=\"color: #FFFFFF;\">\n</span><span style=\"color: #FFFFFF;\">ᴄʟᴀɴs</span><span style=\"color: #FFFFFF;\">    </span><span class=\"minecraft-formatting-obfuscated\" style=\"color: #55FFFF; font-weight: bold;\">i</span><span class=\"minecraft-formatting-obfuscated\" style=\"color: #FF55FF; font-weight: bold;\">i</span><span class=\"minecraft-formatting-obfuscated\" style=\"color: #55FFFF; font-weight: bold;\">i</span><span style=\"color: #55FFFF;\"> </span><span style=\"color: #FF55FF;\">#1 ᴘɪxᴇʟᴍᴏɴ ɴᴇᴛᴡᴏʀᴋ </span><span class=\"minecraft-formatting-obfuscated\" style=\"color: #55FFFF; font-weight: bold;\">i</span><span class=\"minecraft-formatting-obfuscated\" style=\"color: #FF55FF; font-weight: bold;\">i</span><span class=\"minecraft-formatting-obfuscated\" style=\"color: #55FFFF; font-weight: bold;\">i</span><span style=\"color: #55FFFF;\">    </span><span style=\"color: #FFFFFF;\">ǫᴜᴇsᴛs</span></span>"
+        },
+        "version": {
+            "name": "1.19.60",
+            "protocol": 567
+        },
+        "players": {
+            "online": 998,
+            "max": 999
+        },
+        "serverGUID": "-2348988569801821847",
+        "serverID": "-2348988569801821847",
+        "gameMode": "Survival",
+        "gameModeID": 1,
+        "portIPv4": 19132,
+        "portIPv6": -1,
+        "srvRecord": null,
+        "cacheTime": 1677570728,
+        "cacheExpire": 1677571028
+    }
 }
 
 export {
     javaResponse,
-    javaQueryResponse
+    javaQueryResponse,
+    bedrockResponse
 }

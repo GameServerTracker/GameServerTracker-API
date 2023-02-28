@@ -1,10 +1,10 @@
 import { CACHE_MANAGER, Controller } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger/dist/decorators';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger/dist/decorators';
 import { MinecraftService } from './minecraft.service';
 import { Get, Inject, Param } from '@nestjs/common/decorators';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import { Cache } from 'cache-manager';
-import { javaQueryResponse, javaResponse } from './minecraft.schema';
+import { bedrockResponse, javaQueryResponse, javaResponse } from './minecraft.schema';
 
 /*
 CODE CacheKey
@@ -68,15 +68,11 @@ export class MinecraftController {
     @Get('/bedrock/:address')
     @ApiOperation({
         summary: "Track a Minecraft Server Bedrock Edition",
-        description: "Return a JSON response",
+        description: "Track a Minecraft Server Bedrock Edition",
     })
-    @ApiResponse({
-        status: 200,
-        schema: {
-            example: {
-                message: "Todo"
-            }
-        }
+    @ApiOkResponse({
+        description: 'Server information',
+        schema: bedrockResponse
     })
     async trackBedrockServer(@Param() address: ServerTrackedDto): Promise<any> {
         const cache: any = await this.cacheManager.get(`MCB:${address.address}`);
