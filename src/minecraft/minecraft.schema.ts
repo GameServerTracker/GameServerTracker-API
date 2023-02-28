@@ -1,5 +1,6 @@
+import { ReferenceObject, SchemaObject } from "@nestjs/swagger/dist/interfaces/open-api-spec.interface";
 
-const javaResponse: any = {
+const javaResponse: SchemaObject & Partial<ReferenceObject> = {
     type: 'object',
     properties: {
         address: { type: 'string', description: "Server's address" },
@@ -97,7 +98,7 @@ const javaResponse: any = {
     }
 };
 
-const javaQueryResponse: any = {
+const javaQueryResponse: SchemaObject & Partial<ReferenceObject> = {
     type: "object",
     properties: {
         address: { type: 'string', description: "Server's address" },
