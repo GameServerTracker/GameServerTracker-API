@@ -1,8 +1,9 @@
 import { CACHE_MANAGER, Controller, Get, Inject, Param } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger/dist/decorators';
+import { ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger/dist/decorators';
 import { SourceService } from './source.service';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import { Cache } from 'cache-manager';
+import { sourceResponse } from './source.schema';
 
 /*
 CODE CacheKey
@@ -24,13 +25,9 @@ export class SourceController {
         summary: "Track a Source Server",
         description: "Return a JSON response",
     })
-    @ApiResponse({
-        status: 200,
-        schema: {
-            example: {
-                message: "Todo"
-            }
-        }
+    @ApiOkResponse({
+        description: 'Server information',
+        schema: sourceResponse
     })
     async trackServer(@Param() address: ServerTrackedDto): Promise<any> {
         const cache: any = await this.cacheManager.get(`SO:${address.address}`);
