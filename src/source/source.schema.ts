@@ -182,7 +182,48 @@ const sourcePlayersResponse: SchemaObject & Partial<ReferenceObject> = {
     }
 };
 
+const sourceRulesResponse: SchemaObject & Partial<ReferenceObject> = {
+    type: 'object',
+    properties: {
+        address: { type: 'string', description: "Server's address" },
+        port: { type: 'number', description: "Server's port. Default is 27015", default: 27015 },
+        online: { type: 'boolean', description: "Server's status. If the bool is true, the server is online" },
+        ping: { type: 'number', description: "Response time after the ping" },
+        rules: {
+            type: "array",
+            description: "List of rules depending on server",
+            items: {}
+        },
+        cacheTime: { type: 'number', description: "UNIX timestamp when the response was cached" },
+        cacheExpire: { type: 'number', description: "UNIX timestamp when the response will be remove from cache. Around 5 minutes." }
+    },
+    required: [
+        'address',
+        'port',
+        'online',
+        'ping',
+        'rules',
+        'cacheTime',
+        'cacheExpire'
+    ],
+    example: {
+        "address": "74.91.124.246:27015",
+        "port": 27015,
+        "online": true,
+        "ping": 204,
+        "rules": {
+          "rules_1": 0,
+          "rules_2": 0,
+          "rules_3": "foo"
+        },
+        "cacheTime": 1677652047,
+        "cacheExpire": 1677652347
+      }
+};
+
+
 export {
     sourceResponse,
-    sourcePlayersResponse
+    sourcePlayersResponse,
+    sourceRulesResponse
 }

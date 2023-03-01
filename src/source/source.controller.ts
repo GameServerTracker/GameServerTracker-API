@@ -3,7 +3,7 @@ import { ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { SourceService } from './source.service';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import { Cache } from 'cache-manager';
-import { sourcePlayersResponse, sourceResponse } from './source.schema';
+import { sourcePlayersResponse, sourceResponse, sourceRulesResponse } from './source.schema';
 
 /*
 CODE CacheKey
@@ -67,15 +67,11 @@ export class SourceController {
     @Get('/rules/:address')
     @ApiOperation({
         summary: "Track a Source Server's rules",
-        description: "Return a JSON response",
+        description: "Return a JSON response with the server rules, or configuration variables in name/value pairs.",
     })
-    @ApiResponse({
-        status: 200,
-        schema: {
-            example: {
-                message: "Todo"
-            }
-        }
+    @ApiOkResponse({
+        description: 'Players connected information',
+        schema: sourceRulesResponse
     })
     async trackRules(@Param() address: ServerTrackedDto): Promise<any> {
         const cache: any = await this.cacheManager.get(`SOR:${address.address}`);
