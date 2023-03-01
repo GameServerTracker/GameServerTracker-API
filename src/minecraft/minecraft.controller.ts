@@ -24,7 +24,7 @@ export class MinecraftController {
     @Get('/:address')
     @ApiOperation({
         summary: "Track a Minecraft Server Java Edition",
-        description: "Track a Minecraft Server Java Edition by a ping request.",
+        description: "Return a JSON response with information about the server Minecraft Java Edition by ping request",
     })
     @ApiOkResponse({
         description: 'Server information',
@@ -46,7 +46,7 @@ export class MinecraftController {
     @Get('/query/:address')
     @ApiOperation({
         summary: "Track a Minecraft Server Java Edition with a query request",
-        description: "Track a Minecraft Server Java Edition by a query request.",
+        description: "Return a JSON response with information about the server Minecraft Java Edition by query request",
     })
     @ApiOkResponse({
         description: 'Server information',
@@ -68,7 +68,7 @@ export class MinecraftController {
     @Get('/bedrock/:address')
     @ApiOperation({
         summary: "Track a Minecraft Server Bedrock Edition",
-        description: "Track a Minecraft Server Bedrock Edition",
+        description: "Return a JSON response with information about the server Minecraft Bedrock Edition by ping request",
     })
     @ApiOkResponse({
         description: 'Server information',
