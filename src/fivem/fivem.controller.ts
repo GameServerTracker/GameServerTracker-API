@@ -5,7 +5,7 @@ import { ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { Cache } from 'cache-manager';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import ServerCfxDto from 'src/dto/serverCfxDto';
-import { fivemResponse } from './fivem.schema';
+import { fivemPlayersResponse, fivemResponse } from './fivem.schema';
 
 /*
 CODE CacheKey
@@ -72,16 +72,12 @@ export class FivemController {
 
     @Get('/players/:address')
     @ApiOperation({
-        summary: "Track a Source Server's players",
-        description: "Return a JSON response",
+        summary: "Track a FiveM Server's players",
+        description: "Return a JSON response with information about the players currently on the server",
     })
-    @ApiResponse({
-        status: 200,
-        schema: {
-            example: {
-                message: "Todo"
-            }
-        }
+    @ApiOkResponse({
+        description: 'Players connected information',
+        schema: fivemPlayersResponse
     })
     async trackPlayers(@Param() address: ServerTrackedDto): Promise<any> {
         const cache: any = await this.cacheManager.get(`FMP:${address.address}`);
