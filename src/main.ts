@@ -6,7 +6,7 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const swaggerConfig = new DocumentBuilder()
-  .setTitle("Game server tracker - API")
+  .setTitle("Game Server Tracker - API")
   .setDescription(`A API which shows several information on a server Minecraft / Source (Gmod, CS, CSGO) / FiveM`)
   .setVersion("1.0")
   .setContact("BliTz_37", "https://github.com/BliTz037", "blitz@blitzlab.ninja")
