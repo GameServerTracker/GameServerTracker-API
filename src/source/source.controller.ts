@@ -23,7 +23,7 @@ export class SourceController {
     @Get('/:address')
     @ApiOperation({
         summary: "Track a Source Server",
-        description: "Return a JSON response",
+        description: "Return a JSON response with information about the server",
     })
     @ApiOkResponse({
         description: 'Server information',
@@ -45,7 +45,7 @@ export class SourceController {
     @Get('/players/:address')
     @ApiOperation({
         summary: "Track a Source Server's players",
-        description: "Return a JSON response",
+        description: "Return a JSON response with information about the players currently on the server",
     })
     @ApiOkResponse({
         description: 'Players connected information',
