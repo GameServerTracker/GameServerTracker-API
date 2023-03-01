@@ -95,8 +95,94 @@ const sourceResponse: SchemaObject & Partial<ReferenceObject> = {
         "cacheTime": 1677648209,
         "cacheExpire": 1677648509
     }
-}
+};
+
+const sourcePlayersResponse: SchemaObject & Partial<ReferenceObject> = {
+    type: 'object',
+    properties: {
+        address: { type: 'string', description: "Server's address" },
+        port: { type: 'number', description: "Server's port. Default is 27015", default: 27015 },
+        online: { type: 'boolean', description: "Server's status. If the bool is true, the server is online" },
+        ping: { type: 'number', description: "Response time after the ping" },
+        playersOnline: { type: 'number', description: "Number of Players connected" },
+        players: {
+            type: "array",
+            description: "List of players connected",
+            items: {
+                type: "object",
+                description: "Players's information",
+                properties: {
+                    index: { type: 'number', description: "Index of player chunk starting from 0", default: 0 },
+                    name: { type: 'string', description: "Player's name" },
+                    score: { type: 'number', description: "Player's score (usually 'frags' or 'kills')" },
+                    timeOnline: {
+                        type: 'object',
+                        description: "Time player has been connected to the server",
+                        properties: {
+                            hours: { type: 'number', description: 'Hours' },
+                            minutes: { type: 'number', description: 'Minutes' },
+                            seconds: { type: 'number', description: 'Seconds' },
+                            raw: { type: 'number', description: 'Time (in seconds) player has been connected to the server' },
+                            start: { type: 'date', description: 'Date in ISO 8601 of last refresh' }
+                        },
+                        required: [
+                            'hours', 'minutes', 'seconds', 'raw', 'start'
+                        ]
+                    }
+                }
+            }
+        },
+        cacheTime: { type: 'number', description: "UNIX timestamp when the response was cached" },
+        cacheExpire: { type: 'number', description: "UNIX timestamp when the response will be remove from cache. Around 5 minutes." }
+    },
+    required: [
+        'address',
+        'port',
+        'online',
+        'ping',
+        'playersOnline',
+        'players',
+        'cacheTime',
+        'cacheExpire'
+    ],
+    example: {
+        "address": "74.91.124.246:27015",
+        "port": 27015,
+        "online": true,
+        "ping": 199,
+        "playersOnline": 2,
+        "players": [
+            {
+                "index": 0,
+                "name": "Billie Jean",
+                "score": 4,
+                "timeOnline": {
+                    "hours": 3,
+                    "minutes": 12,
+                    "seconds": 12,
+                    "raw": 11532.884765625,
+                    "start": "2023-03-01T06:00:46.243Z"
+                }
+            },
+            {
+                "index": 0,
+                "name": "Bornyist",
+                "score": 11,
+                "timeOnline": {
+                    "hours": 2,
+                    "minutes": 29,
+                    "seconds": 55,
+                    "raw": 8995.3857421875,
+                    "start": "2023-03-01T06:00:48.780Z"
+                }
+            }
+        ],
+        "cacheTime": 1677650457,
+        "cacheExpire": 1677650757
+    }
+};
 
 export {
-    sourceResponse
+    sourceResponse,
+    sourcePlayersResponse
 }

@@ -3,7 +3,7 @@ import { ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { SourceService } from './source.service';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import { Cache } from 'cache-manager';
-import { sourceResponse } from './source.schema';
+import { sourcePlayersResponse, sourceResponse } from './source.schema';
 
 /*
 CODE CacheKey
@@ -47,13 +47,9 @@ export class SourceController {
         summary: "Track a Source Server's players",
         description: "Return a JSON response",
     })
-    @ApiResponse({
-        status: 200,
-        schema: {
-            example: {
-                message: "Todo"
-            }
-        }
+    @ApiOkResponse({
+        description: 'Players connected information',
+        schema: sourcePlayersResponse
     })
     async trackPlayers(@Param() address: ServerTrackedDto): Promise<any> {
         const cache: any = await this.cacheManager.get(`SOP:${address.address}`);
