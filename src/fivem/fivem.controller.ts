@@ -5,7 +5,7 @@ import { ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { Cache } from 'cache-manager';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import ServerCfxDto from 'src/dto/serverCfxDto';
-import { fivemPlayersResponse, fivemResponse } from './fivem.schema';
+import { fivemCfxResponse, fivemPlayersResponse, fivemResponse } from './fivem.schema';
 
 /*
 CODE CacheKey
@@ -47,15 +47,11 @@ export class FivemController {
     @Get('/cfx/:code')
     @ApiOperation({
         summary: "Track a FiveM Server by his cfx code",
-        description: "Return a JSON response",
+        description: "Return a JSON response with information about the server from FiveM's API",
     })
-    @ApiResponse({
-        status: 200,
-        schema: {
-            example: {
-                message: "Todo"
-            }
-        }
+    @ApiOkResponse({
+        description: 'Server information',
+        schema: fivemCfxResponse
     })
     async trackServerByCfx(@Param() code: ServerCfxDto): Promise<any> {
         const cache: any = await this.cacheManager.get(`FMCFX:${code.code}`);
