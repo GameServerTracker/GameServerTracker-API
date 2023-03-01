@@ -1,10 +1,11 @@
 import { Controller, CACHE_MANAGER } from '@nestjs/common';
 import { FivemService } from './fivem.service';
 import { Get, Inject, Param } from '@nestjs/common/decorators';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Cache } from 'cache-manager';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import ServerCfxDto from 'src/dto/serverCfxDto';
+import { fivemResponse } from './fivem.schema';
 
 /*
 CODE CacheKey
@@ -24,15 +25,11 @@ export class FivemController {
     @Get('/:address')
     @ApiOperation({
         summary: "Track a FiveM Server",
-        description: "Return a JSON response",
+        description: "Return a JSON response with information about the server",
     })
-    @ApiResponse({
-        status: 200,
-        schema: {
-            example: {
-                message: "Todo"
-            }
-        }
+    @ApiOkResponse({
+        description: 'Server information',
+        schema: fivemResponse
     })
     async trackServer(@Param() address: ServerTrackedDto): Promise<any> {
         const cache: any = await this.cacheManager.get(`FM:${address.address}`);
