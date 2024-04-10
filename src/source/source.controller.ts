@@ -1,9 +1,10 @@
-import { CACHE_MANAGER, Controller, Get, Inject, Param } from '@nestjs/common';
+import { Controller, Get, Inject, Param } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger/dist/decorators';
 import { SourceService } from './source.service';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import { Cache } from 'cache-manager';
 import { sourcePlayersResponse, sourceResponse, sourceRulesResponse } from './source.schema';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 /*
 CODE CacheKey

@@ -1,4 +1,4 @@
-import { Controller, CACHE_MANAGER } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { FivemService } from './fivem.service';
 import { Get, Inject, Param } from '@nestjs/common/decorators';
 import { ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -6,6 +6,7 @@ import { Cache } from 'cache-manager';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import ServerCfxDto from 'src/dto/serverCfxDto';
 import { fivemCfxResponse, fivemPlayersResponse, fivemResponse } from './fivem.schema';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 /*
 CODE CacheKey

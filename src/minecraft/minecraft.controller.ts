@@ -1,10 +1,11 @@
-import { CACHE_MANAGER, Controller } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger/dist/decorators';
 import { MinecraftService } from './minecraft.service';
 import { Get, Inject, Param } from '@nestjs/common/decorators';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import { Cache } from 'cache-manager';
 import { bedrockResponse, javaQueryResponse, javaResponse } from './minecraft.schema';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 /*
 CODE CacheKey
