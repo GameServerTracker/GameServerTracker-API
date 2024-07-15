@@ -1,9 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
+  const port: number | string = process.env.PORT || 3000;
   const app = await NestFactory.create(AppModule);
   const swaggerConfig = new DocumentBuilder()
   .setTitle("Game Server Tracker - API")
@@ -16,6 +17,7 @@ async function bootstrap() {
   SwaggerModule.setup('api-docs', app, swaggerDocument);
   app.useGlobalPipes(new ValidationPipe({ disableErrorMessages: false, whitelist: true }))
   app.enableCors();
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(port);
+  Logger.log(`GST Lametric API is running. Listening on port ${port}`, "Bootstrap");
 }
 bootstrap();
