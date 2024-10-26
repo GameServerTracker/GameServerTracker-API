@@ -7,6 +7,7 @@ import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import ServerCfxDto from 'src/dto/serverCfxDto';
 import { fivemCfxResponse, fivemPlayersResponse, fivemResponse } from './fivem.schema';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { CacheKeys } from 'src/utils/enums';
 
 /*
 CODE CacheKey
@@ -33,7 +34,7 @@ export class FivemController {
         schema: fivemResponse
     })
     async trackServer(@Param() address: ServerTrackedDto): Promise<any> {
-        const cache: any = await this.cacheManager.get(`FM:${address.address}`);
+        const cache: any = await this.cacheManager.get(`${CacheKeys.FiveM}:${address.address}`);
         let result: any;
 
         if (cache)
@@ -41,7 +42,7 @@ export class FivemController {
         result = await this.service.trackServer(address);
         result["cacheTime"] = Math.floor(Date.now() / 1000);
         result["cacheExpire"] = Math.floor(Date.now() / 1000) + (5 * 60);
-        this.cacheManager.set(`FM:${address.address}`, result, 5 * 60 * 1000);
+        this.cacheManager.set(`${CacheKeys.FiveM}:${address.address}`, result, 5 * 60 * 1000);
         return result;
     }
 
@@ -55,7 +56,7 @@ export class FivemController {
         schema: fivemCfxResponse
     })
     async trackServerByCfx(@Param() code: ServerCfxDto): Promise<any> {
-        const cache: any = await this.cacheManager.get(`FMCFX:${code.code}`);
+        const cache: any = await this.cacheManager.get(`${CacheKeys.FiveMCfxCode}:${code.code}`);
         let result: any;
 
         if (cache)
@@ -63,7 +64,7 @@ export class FivemController {
         result = await this.service.trackServerByCfx(code);
         result["cacheTime"] = Math.floor(Date.now() / 1000);
         result["cacheExpire"] = Math.floor(Date.now() / 1000) + (5 * 60);
-        this.cacheManager.set(`FMCFX:${code.code}`, result, 5 * 60 * 1000);
+        this.cacheManager.set(`${CacheKeys.FiveMCfxCode}:${code.code}`, result, 5 * 60 * 1000);
         return result;
     }
 
@@ -77,7 +78,7 @@ export class FivemController {
         schema: fivemPlayersResponse
     })
     async trackPlayers(@Param() address: ServerTrackedDto): Promise<any> {
-        const cache: any = await this.cacheManager.get(`FMP:${address.address}`);
+        const cache: any = await this.cacheManager.get(`${CacheKeys.FiveMPlayers}:${address.address}`);
         let result: any;
 
         if (cache)
@@ -85,7 +86,7 @@ export class FivemController {
         result = await this.service.trackPlayers(address);
         result["cacheTime"] = Math.floor(Date.now() / 1000);
         result["cacheExpire"] = Math.floor(Date.now() / 1000) + (5 * 60);
-        this.cacheManager.set(`FMP:${address.address}`, result, 5 * 60 * 1000);
+        this.cacheManager.set(`${CacheKeys.FiveMPlayers}:${address.address}`, result, 5 * 60 * 1000);
         return result;
     }
 }

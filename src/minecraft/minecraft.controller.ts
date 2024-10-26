@@ -6,6 +6,7 @@ import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import { Cache } from 'cache-manager';
 import { bedrockResponse, javaQueryResponse, javaResponse } from './minecraft.schema';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { CacheKeys } from 'src/utils/enums';
 
 /*
 CODE CacheKey
@@ -40,7 +41,7 @@ export class MinecraftController {
         result = await this.service.trackServer(address);
         result["cacheTime"] = Math.floor(Date.now() / 1000);
         result["cacheExpire"] = Math.floor(Date.now() / 1000) + (5 * 60);
-        this.cacheManager.set(`MC:${address.address}`, result, 5 * 60 * 1000);
+        this.cacheManager.set(`${CacheKeys.Minecraft}:${address.address}`, result, 5 * 60 * 1000);
         return result;
     }
 
@@ -54,7 +55,7 @@ export class MinecraftController {
         schema: javaQueryResponse
     })
     async trackServerQuery(@Param() address: ServerTrackedDto): Promise<any> {
-        const cache: any = await this.cacheManager.get(`MCQ:${address.address}`);
+        const cache: any = await this.cacheManager.get(`${CacheKeys.MinecraftQuery}:${address.address}`);
         let result: any;
 
         if (cache)
@@ -76,7 +77,7 @@ export class MinecraftController {
         schema: bedrockResponse
     })
     async trackBedrockServer(@Param() address: ServerTrackedDto): Promise<any> {
-        const cache: any = await this.cacheManager.get(`MCB:${address.address}`);
+        const cache: any = await this.cacheManager.get(`${CacheKeys.MinecraftBedrock}:${address.address}`);
         let result: any;
 
         if (cache)

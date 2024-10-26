@@ -5,6 +5,7 @@ import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import { Cache } from 'cache-manager';
 import { sourcePlayersResponse, sourceResponse, sourceRulesResponse } from './source.schema';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { CacheKeys } from 'src/utils/enums';
 
 /*
 CODE CacheKey
@@ -31,7 +32,7 @@ export class SourceController {
         schema: sourceResponse
     })
     async trackServer(@Param() address: ServerTrackedDto): Promise<any> {
-        const cache: any = await this.cacheManager.get(`SO:${address.address}`);
+        const cache: any = await this.cacheManager.get(`${CacheKeys.Source}:${address.address}`);
         let result: any;
 
         if (cache)
@@ -39,7 +40,7 @@ export class SourceController {
         result = await this.service.trackServer(address);
         result["cacheTime"] = Math.floor(Date.now() / 1000);
         result["cacheExpire"] = Math.floor(Date.now() / 1000) + (5 * 60);
-        this.cacheManager.set(`SO:${address.address}`, result, 5 * 60 * 1000);
+        this.cacheManager.set(`${CacheKeys.Source}:${address.address}`, result, 5 * 60 * 1000);
         return result;
     }
 
@@ -53,7 +54,7 @@ export class SourceController {
         schema: sourcePlayersResponse
     })
     async trackPlayers(@Param() address: ServerTrackedDto): Promise<any> {
-        const cache: any = await this.cacheManager.get(`SOP:${address.address}`);
+        const cache: any = await this.cacheManager.get(`${CacheKeys.SourcePlayers}:${address.address}`);
         let result: any;
 
         if (cache)
@@ -61,7 +62,7 @@ export class SourceController {
         result = await this.service.trackPlayers(address);
         result["cacheTime"] = Math.floor(Date.now() / 1000);
         result["cacheExpire"] = Math.floor(Date.now() / 1000) + (5 * 60);
-        this.cacheManager.set(`SOP:${address.address}`, result, 5 * 60 * 1000);
+        this.cacheManager.set(`${CacheKeys.SourcePlayers}:${address.address}`, result, 5 * 60 * 1000);
         return result;
     }
 
@@ -75,7 +76,7 @@ export class SourceController {
         schema: sourceRulesResponse
     })
     async trackRules(@Param() address: ServerTrackedDto): Promise<any> {
-        const cache: any = await this.cacheManager.get(`SOR:${address.address}`);
+        const cache: any = await this.cacheManager.get(`${CacheKeys.SourceRules}:${address.address}`);
         let result: any;
 
         if (cache)
@@ -83,7 +84,7 @@ export class SourceController {
         result = await this.service.trackRules(address);
         result["cacheTime"] = Math.floor(Date.now() / 1000);
         result["cacheExpire"] = Math.floor(Date.now() / 1000) + (5 * 60);
-        this.cacheManager.set(`SOR:${address.address}`, result, 5 * 60 * 1000);
+        this.cacheManager.set(`${CacheKeys.SourceRules}:${address.address}`, result, 5 * 60 * 1000);
         return result;
     }
 }

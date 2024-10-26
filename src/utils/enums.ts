@@ -20,8 +20,21 @@ enum LametricServerTypeParams {
     MinecraftBedrock = "MinecraftBedrock"
 };
 
+enum CacheKeys {
+    FiveM = "FM",
+    FiveMCfxCode = "FMCFX",
+    FiveMPlayers = "FMP",
+    Minecraft = "MC",
+    MinecraftQuery = "MCQ",
+    MinecraftBedrock = "MCB",
+    Source = "SO",
+    SourcePlayers = "SOP",
+    SourceRules = "SOR"
+}
+
 export {
     DefaultPort,
     LametricIconServer,
-    LametricServerTypeParams
+    LametricServerTypeParams,
+    CacheKeys
 }
