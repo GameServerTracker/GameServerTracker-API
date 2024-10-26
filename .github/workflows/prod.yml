@@ -6,7 +6,7 @@ on:
       - main
 env:
   APP_TAG: prod
-  PORT: 3200
+  PORT: 3242
 
 jobs:
   buildDockerImage:
