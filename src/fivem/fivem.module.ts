@@ -6,6 +6,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 @Module({
   imports: [CacheModule.register()],
   controllers: [FivemController],
-  providers: [FivemService]
+  providers: [FivemService],
+  exports: [FivemService]
 })
 export class FivemModule {}

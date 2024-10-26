@@ -6,6 +6,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 @Module({
   imports: [CacheModule.register()],
   controllers: [MinecraftController],
-  providers: [MinecraftService]
+  providers: [MinecraftService],
+  exports: [MinecraftService]
 })
 export class MinecraftModule {}
