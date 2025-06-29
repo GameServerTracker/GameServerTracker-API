@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { FivemService } from './fivem.service';
 import { Get, Inject, Param } from '@nestjs/common/decorators';
-import { ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Cache } from 'cache-manager';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import ServerCfxDto from 'src/dto/serverCfxDto';
