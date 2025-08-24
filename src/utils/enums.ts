@@ -24,6 +24,7 @@ enum CacheKeys {
     FiveM = "FM",
     FiveMCfxCode = "FMCFX",
     FiveMPlayers = "FMP",
+    FiveMInfo = "FMI",
     Minecraft = "MC",
     MinecraftQuery = "MCQ",
     MinecraftBedrock = "MCB",
