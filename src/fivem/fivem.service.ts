@@ -33,6 +33,32 @@ export class FivemService {
     }
   }
 
+  async trackInfo(serverTracked: ServerTrackedDto): Promise<any> {
+    try {
+      const response: Response = await fetch(
+        `http://${serverTracked.address}/info.json`,
+        {
+          method: 'GET',
+          signal: AbortSignal.timeout(2000),
+        }
+      )
+      const data = await response.json();
+      return {
+        address: serverTracked.address,
+        online: true,
+        ...data,
+      };
+    } catch (err: any) {
+      Logger.warn(
+        `[FiveM server | ${serverTracked.address}] ${err.name}: ${err.message}`,
+      );
+      return {
+        address: serverTracked.address,
+        online: false,
+      };
+    }
+  }
+
   async trackServerByCfx(cfx: ServerCfxDto): Promise<any> {
     try {
       let response: Response = await fetch(

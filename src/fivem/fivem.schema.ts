@@ -285,8 +285,70 @@ const fivemCfxResponse: SchemaObject & Partial<ReferenceObject> = {
     }
 }
 
+const fivemInfoResponse: SchemaObject & Partial<ReferenceObject> = {
+    type: 'object',
+    properties: {
+        address: { type: 'string', description: "Server's address" },
+        online: { type: 'boolean', description: "Server's status. If the bool is true, the server is online" },
+        cacheTime: { type: 'number', description: "UNIX timestamp when the response was cached" },
+        cacheExpire: { type: 'number', description: "UNIX timestamp when the response will be remove from cache. Around 5 minutes." },
+        enhancedHostSupport: { type: 'boolean', description: "Enhanced host support", nullable: true },
+        icon: { type: 'string', description: "Server's icon in base64 format", nullable: true },
+        resources: {
+            type: 'array',
+            description: "List of resources used by the server",
+            nullable: true,
+            items: { type: 'string' }
+        },
+        server: { type: 'string', nullable: true, description: "Server's software" },
+        version: { type: 'number', nullable: true, description: "Server's version" },
+        vars: {
+            type: 'object',
+            description: "Server's variables",
+            nullable: true,
+            properties: {
+                sv_disableClientReplays: { type: 'boolean', nullable: true },
+                sv_enforceGameBuild: { type: 'number', nullable: true },
+                sv_enhancedHostSupport: { type: 'boolean', nullable: true },
+                sv_lan: { type: 'boolean', nullable: true },
+                sv_licenseKeyToken: { type: 'string', nullable: true },
+                sv_maxClients: { type: 'number', nullable: true },
+                sv_poolSizesIncrease: { type: 'string', nullable: true },
+                sv_projectDesc: { type: 'string', nullable: true },
+                sv_projectName: { type: 'string', nullable: true },
+                sv_pureLevel: { type: 'number', nullable: true },
+                sv_replaceExeToSwitchBuilds: { type: 'boolean', nullable: true },
+                sv_scriptHookAllowed: { type: 'boolean', nullable: true },
+            }
+        }
+    },
+    example: {
+        enhancedHostSupport: true,
+        icon: "data:image/png;base64,...",
+        requestSteamTicket: "off",
+        resources: ["hardcap", "_cfx_internal", "mapmanager"],
+        server: "FXServer-master SERVER v1.0.0.6228 win32",
+        version: 123,
+        vars: {
+            sv_disableClientReplays: true,
+            sv_enforceGameBuild: 2802,
+            sv_enhancedHostSupport: true,
+            sv_lan: false,
+            sv_licenseKeyToken: "abcdef123456",
+            sv_maxClients: 32,
+            sv_poolSizesIncrease: "2048",
+            sv_projectDesc: "My FiveM server",
+            sv_projectName: "My FiveM server description",
+            sv_pureLevel: 1,
+            sv_replaceExeToSwitchBuilds: false,
+            sv_scriptHookAllowed: false
+        }
+    } 
+};
+
 export {
     fivemResponse,
+    fivemInfoResponse,
     fivemPlayersResponse,
     fivemCfxResponse
 };

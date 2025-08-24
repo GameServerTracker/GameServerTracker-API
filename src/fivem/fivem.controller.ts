@@ -5,13 +5,14 @@ import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Cache } from 'cache-manager';
 import ServerTrackedDto from 'src/dto/serverTrackedDto';
 import ServerCfxDto from 'src/dto/serverCfxDto';
-import { fivemCfxResponse, fivemPlayersResponse, fivemResponse } from './fivem.schema';
+import { fivemCfxResponse, fivemInfoResponse, fivemPlayersResponse, fivemResponse } from './fivem.schema';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { CacheKeys } from 'src/utils/enums';
 
 /*
 CODE CacheKey
 - FM : FiveM Track server by Address
+- FMI : FiveM Track server Info
 - FMCFX : FiveM Track server by CFX Code
 - FMP : FiveM Track Players
 */
@@ -87,6 +88,28 @@ export class FivemController {
         result["cacheTime"] = Math.floor(Date.now() / 1000);
         result["cacheExpire"] = Math.floor(Date.now() / 1000) + (5 * 60);
         this.cacheManager.set(`${CacheKeys.FiveMPlayers}:${address.address}`, result, 5 * 60 * 1000);
+        return result;
+    }
+
+    @Get('/info/:address')
+    @ApiOperation({
+        summary: "Track a FiveM Server's info",
+        description: "Return a JSON response with information about the server",
+    })
+    @ApiOkResponse({
+        description: 'Server information',
+        schema: fivemInfoResponse
+    })
+    async getServerInfo(@Param() address: ServerTrackedDto): Promise<any> {
+        const cache: any = await this.cacheManager.get(`${CacheKeys.FiveMInfo}:${address.address}`);
+        let result: any;
+
+        if (cache)
+            return cache;
+        result = await this.service.trackInfo(address);
+        result["cacheTime"] = Math.floor(Date.now() / 1000);
+        result["cacheExpire"] = Math.floor(Date.now() / 1000) + (5 * 60);
+        this.cacheManager.set(`${CacheKeys.FiveMInfo}:${address.address}`, result, 5 * 60 * 1000);
         return result;
     }
 }
